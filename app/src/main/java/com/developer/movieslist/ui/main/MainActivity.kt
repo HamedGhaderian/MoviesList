@@ -1,5 +1,7 @@
 package com.developer.movieslist.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -9,6 +11,8 @@ import javax.inject.Inject
 
 
 class MainActivity : BaseActivity() {
+
+    private lateinit var adapter: MoviesListAdapter
 
     private lateinit var mBinding: ActivityMainBinding
 
@@ -26,11 +30,18 @@ class MainActivity : BaseActivity() {
         setContentView(view)
         //
         initErrorMessage(viewModel)
+        initView()
         initObserves()
     }
 
+    private fun initView() {
+
+        adapter = MoviesListAdapter()
+        mBinding.moviesListRv.adapter = adapter
+    }
+
     private fun initObserves() {
-        viewModel.onMoviesLoad.observe(this){event ->
+        viewModel.onMoviesLoad.observe(this) { event ->
             event.getContentIfNotHandled()?.let { serverResponse ->
 
             }
