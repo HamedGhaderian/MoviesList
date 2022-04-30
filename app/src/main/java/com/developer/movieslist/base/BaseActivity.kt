@@ -1,5 +1,6 @@
 package com.developer.movieslist.base
 
+import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 
 /**
@@ -8,5 +9,11 @@ import dagger.android.support.DaggerAppCompatActivity
  */
 open class BaseActivity : DaggerAppCompatActivity() {
 
-
+    fun initErrorMessage(viewModel: BaseViewModel) {
+        viewModel.errorToast.observe(this) { event ->
+            event.getContentIfNotHandled()?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }

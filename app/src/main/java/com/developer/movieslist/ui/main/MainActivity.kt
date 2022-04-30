@@ -1,13 +1,23 @@
 package com.developer.movieslist.ui.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.developer.movieslist.base.BaseActivity
 import com.developer.movieslist.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 
 class MainActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<MainViewModel> {
+        viewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +25,15 @@ class MainActivity : BaseActivity() {
         val view = mBinding.root
         setContentView(view)
         //
+        initErrorMessage(viewModel)
+        initObserves()
+    }
 
+    private fun initObserves() {
+        viewModel.onMoviesLoad.observe(this){event ->
+            event.getContentIfNotHandled()?.let { serverResponse ->
+
+            }
+        }
     }
 }

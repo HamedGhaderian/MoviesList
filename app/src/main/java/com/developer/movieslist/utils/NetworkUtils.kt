@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import androidx.databinding.ktx.BuildConfig
 import com.developer.movieslist.data.remote.NetworkConnectionInterceptor
+import com.developer.movieslist.utils.Const.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -26,7 +27,7 @@ object NetworkUtils {
 
     fun getRetrofitInstance(context: Context): Retrofit? {
         val httpClient = getHttpClient(context)
-        val builder = Retrofit.Builder().baseUrl("")
+        val builder = Retrofit.Builder().baseUrl(BASE_URL)
         builder.addConverterFactory(GsonConverterFactory.create(gson))
         builder.client(httpClient)
         return builder.build()

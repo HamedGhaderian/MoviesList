@@ -8,4 +8,5 @@ package com.developer.movieslist.utils
  */
 object Const {
     //
+    const val BASE_URL = "https://api.themoviedb.org/3/"
 }
