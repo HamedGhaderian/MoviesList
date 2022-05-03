@@ -8,5 +8,5 @@ import java.io.IOException
  */
 class NoConnectivityException : IOException() {
     override val message: String
-        get() = "عدم اتصال به اینترنت!"
+        get() = "Internet connection error!"
 }

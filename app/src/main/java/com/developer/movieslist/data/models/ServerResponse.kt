@@ -11,6 +11,9 @@ data class ServerResponse(
     @SerializedName("page")
     @Expose
     val page: Int,
+    @SerializedName("total_pages")
+    @Expose
+    val totalPages: Int,
     @SerializedName("results")
     @Expose
     val results: MutableList<Movie>

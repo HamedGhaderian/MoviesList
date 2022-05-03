@@ -2,7 +2,7 @@ package com.developer.movieslist.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.databinding.ktx.BuildConfig
+import com.developer.movieslist.BuildConfig
 import com.developer.movieslist.data.remote.NetworkConnectionInterceptor
 import com.developer.movieslist.utils.Const.BASE_URL
 import com.google.gson.Gson
@@ -39,6 +39,7 @@ object NetworkUtils {
             val original = chain.request()
             val builder = original.newBuilder()
             builder.addHeader("Accept", " application/json")
+            builder.addHeader("Authorization", " Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZjI4MDAxN2Y0NmYzOThjZGU2NzI3NWU1MTY4NGU2NyIsInN1YiI6IjYyNmFhMDg1MmQ1MzFhMDljMTAzN2ZiMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jBnixkQ4d4HlKTTUMBuOQNjTSwFGl58Buy1k-ZUcLkY")
             builder.method(original.method, original.body)
             chain.proceed(builder.build())
         }
@@ -55,9 +56,9 @@ object NetworkUtils {
             client.addInterceptor(interceptor)
         }
 
-        client.connectTimeout(2, TimeUnit.MINUTES)
-        client.writeTimeout(2, TimeUnit.MINUTES)
-        client.readTimeout(2, TimeUnit.MINUTES)
+        client.connectTimeout(20, TimeUnit.SECONDS)
+        client.writeTimeout(20, TimeUnit.SECONDS)
+        client.readTimeout(20, TimeUnit.SECONDS)
         client.retryOnConnectionFailure(false)
         return client.build()
     }

@@ -10,14 +10,14 @@ import com.google.gson.annotations.SerializedName
 data class Movie(
     @SerializedName("id")
     @Expose
-    val id: String,
+    val id: String = "",
     @SerializedName("title")
     @Expose
-    val title: String,
+    val title: String = "",
     @SerializedName("overview")
     @Expose
-    val overview: String,
+    val overview: String = "",
     @SerializedName("poster_path")
     @Expose
-    val posterUrl: String?
+    val posterUrl: String? = "",
 )
