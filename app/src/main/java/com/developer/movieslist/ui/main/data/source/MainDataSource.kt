@@ -9,5 +9,5 @@ import retrofit2.Response
  * Author     : Hamed Ghaderian
  */
 interface MainDataSource {
-    suspend fun getMovies(context: Context, page: Int = 1): Response<ServerResponse>
+    suspend fun getMovies(context: Context, page: Int): Response<ServerResponse>
 }

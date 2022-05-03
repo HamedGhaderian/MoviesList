@@ -26,10 +26,10 @@ class MainDefaultRepository @Inject constructor(
         return withContext(ioDispatcher) {
             val result: Response<ServerResponse>
             try {
-                result = mainRemoteDataSource.getMovies(context)
+                result = mainRemoteDataSource.getMovies(context, page)
             } catch (e: Exception) {
                 e.printStackTrace()
-                return@withContext RequestResult.Error("Server response cannot be converted")
+                return@withContext RequestResult.Error(if (e.message == null) "Unxpected error" else e.message!!)
             }
             when (val response = ResponseHandler.create(context, result)) {
                 is ApiSuccessResponse -> {

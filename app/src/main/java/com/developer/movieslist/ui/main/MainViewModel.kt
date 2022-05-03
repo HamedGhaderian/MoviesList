@@ -17,13 +17,14 @@ import javax.inject.Inject
  * Author     : Hamed Ghaderian
  */
 class MainViewModel @Inject constructor(
-    private val defaultRepository: MainDefaultRepository
+    private val defaultRepository: MainDefaultRepository,
 ) : BaseViewModel() {
 
     private val _onMoviesLoad = MutableLiveData<Event<ServerResponse>>()
     val onMoviesLoad: LiveData<Event<ServerResponse>> = _onMoviesLoad
 
-    fun getMovies(context: Context, page: Int) {
+    fun getMovies(context: Context, page: Int, isLoadMore: Boolean) {
+        loading(!isLoadMore)
         viewModelScope.launch {
             when (val result = defaultRepository.getMovies(context, page)) {
                 is RequestResult.Success -> {
@@ -33,6 +34,21 @@ class MainViewModel @Inject constructor(
                     showErrorToast(result.exception)
                 }
             }
+            loading(false)
         }
+    }
+
+    private val _loading = MutableLiveData<Event<Boolean>>()
+    val loading: LiveData<Event<Boolean>> = _loading
+
+    private fun loading(visibility: Boolean) {
+        _loading.value = Event(visibility)
+    }
+
+    private val _errorToast = MutableLiveData<Event<String?>>()
+    val errorToast: LiveData<Event<String?>> = _errorToast
+
+    private fun showErrorToast(message: String?) {
+        _errorToast.value = Event(message)
     }
 }

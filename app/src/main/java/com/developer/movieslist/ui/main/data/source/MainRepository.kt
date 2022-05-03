@@ -9,5 +9,5 @@ import com.developer.movieslist.data.models.ServerResponse
  * Author     : Hamed Ghaderian
  */
 interface MainRepository {
-    suspend fun getMovies(context: Context, page: Int = 1): RequestResult<ServerResponse>
+    suspend fun getMovies(context: Context, page: Int): RequestResult<ServerResponse>
 }
